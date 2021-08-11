@@ -94,6 +94,91 @@ switch(speices,
        "fox" = print("?"))
 
 
+library(tidyverse)
+library(palmerpenguins)
+
+
+penguin_summary <- penguins %>% 
+  group_by(species, island) %>% 
+  summarize(mean_bill_depth = mean(bill_depth_mm, na.rm = TRUE), 
+            sd_bill_depth = sd(bill_depth_mm, na.rm = TRUE))
+
+penguin_summary
+
+penguins_subset <- penguins %>% 
+  filter(island == "Torgersen") %>% #filter is rows
+  select(species, flipper_length_mm, year) #select is column 
+
+penguins_subset
+
+
+## Now some for loop intro practice 
+
+
+animal <- c("cat", "dog", "dog", "bird", "mouse", "elephant")
+
+
+for (i in seq_along(animal)) {
+  
+  if(animal[i] == "dog") {
+    print("I love dogs")
+  } else {
+    print("this is a different animal")
+  }
+  
+}
+
+species <- c("dog", "dog", "elephant", "goat", "elephant", "goat", "dog")
+age_human <- c(3, 6, 5, 18, 88, 23, 45)
+
+
+animal_ages <- vector(mode = "numeric", length = length(species))
+
+for (i in seq_along(species)) {
+  if (species[i] == "dog") {
+    animal_age <- age_human[i] * 7
+  } else if(species[i] == "elephant") {
+    animal_age <- age_human[i] * 0.88
+  } else if(species[i] == "goat") {
+    animal_age <- age_human[i] * 4.7
+  }
+  animal_ages[i] <- animal_age
+}
+
+animal_ages
+
+
+# want to calculte teh mean value of each column in a data frame 
+
+mean_mtcars <- vector(mode = "numeric", length = ncol(mtcars))
+
+
+for (i in seq_along(mtcars)) {
+  mean_val <- mean(mtcars[[i]], na.rm = TRUE)
+  mean_mtcars[i] <- mean_val
+}
+
+mean_mtcars
+
+
+# same thing with apply 
+
+apply(X = mtcars, 2, mean, na.rm = TRUE)
+
+
+# same thing with PURRR
+
+map_df(.x = mtcars, .f = mean, na.rm = TRUE)
+
+
+
+
+
+
+
+
+
+
 
 
 
